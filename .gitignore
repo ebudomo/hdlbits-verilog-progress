@@ -2,4 +2,4 @@
 /project-folder/
 
 # Ignore backup files
-.bak
+*.v.bak
