@@ -4,7 +4,7 @@ module popcount255(
 );
 	// counting number of high bits in input
 	// out = 0 is "default case"
-	// fulfils requirement for variable to always have a value
+	// fulfills requirement for variable to always have a value
 	integer i;
 	always @(*) begin
 		out = 0;
