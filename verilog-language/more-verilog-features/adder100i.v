@@ -13,8 +13,8 @@ module adder100i(
 	// using module array
 	genvar i;
 	generate
-		for (i=0; i<100; i=i+1) begin : fadd_array
-		fadd u_fadd (
+		for (i=0; i<100; i=i+1) begin : fadd_1_array
+		fadd_1 u_fadd (
 				a[i], b[i], fadd_cin[i],
 				cout[i], sum[i]
 			);
@@ -25,7 +25,7 @@ module adder100i(
 endmodule
 
 // 1-bit forward adder module
-module fadd(
+module fadd_1(
 	input in1, in2, cin,
 	output cout, sum 
 );
