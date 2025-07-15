@@ -27,13 +27,3 @@ module bcdadd100(
 	assign cout = bcd_fadd_cin[100];
                 
 endmodule
-
-module bcd_fadd(
-	input [3:0] a,
-	input [3:0] b,
-	input     cin,
-	output   cout,
-	output [3:0] sum 
-);
-	// module body
-endmodule
