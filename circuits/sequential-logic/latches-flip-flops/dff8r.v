@@ -26,6 +26,7 @@ module dffr_mod(
 	output reg q
 );
 	// single DFF with active high reset
+	// use non-blocking assignment
 	always @(posedge clk) begin
 		q <= reset ? 1'b0 : d;
 	end
