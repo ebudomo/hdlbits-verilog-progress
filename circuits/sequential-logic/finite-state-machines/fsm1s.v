@@ -1,24 +1,24 @@
-module fsm1(
+module fsm1s(
 	input clk,
-	input areset,
+	input reset,
 	input in,
 	output out
 );
-	// simple Moore machine with async reset
+	// simple Moore machine with sync reset - a TFF
 	parameter A=1'b0, B=1'b1;
 	reg state, next;
-	
+
 	// combinational block for state transition logic
 	always @(*) begin
 		case (state)
-			A : next = in ? A : B;
-			B : next = in ? B : A;
+		A : next = in ? A : B;
+		B : next = in ? B : A;
 		endcase
 	end
-	
+
 	// sequential block for state flip-flops
-	always @(posedge clk, posedge areset) begin
-		if (areset)
+	always @(posedge clk) begin
+		if (reset)
 			state <= B;
 		else
 			state <= next;
@@ -26,5 +26,5 @@ module fsm1(
 
 	// output logic
 	assign out = (state == B);
-	
+
 endmodule
