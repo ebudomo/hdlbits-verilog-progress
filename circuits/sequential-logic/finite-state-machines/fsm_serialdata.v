@@ -8,7 +8,6 @@ module fsm_serialdata(
 	// using FSM from fsm_serial with added datapath that outputs correctly-received data byte
 	// out_byte must be valid hwen done = 1, otherwise don't care
 	// note: serial protocol sends LSB first (reading right to left)
-	
 	parameter START = 3'b000, STOP = 3'b001, DATA = 3'b010, IDLE = 3'b011, ERROR = 3'b100;
 	reg [2:0] state, next;
 	reg [3:0] count;

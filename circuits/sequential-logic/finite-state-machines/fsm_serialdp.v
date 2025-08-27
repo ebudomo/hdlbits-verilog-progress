@@ -2,23 +2,25 @@ module fsm_serialdp(
 	input clk,
 	input in,
 	input reset,
-	output [7:0] out_byte,
-	output done
+	output reg [7:0] out_byte,
+	output reg done
 );
 	// serial receiver with odd parity
-	// similar to fsm_serial, after START there will be 8 DATA bits and 1 PARITY bit
+	// similar to fsm_serial, after START there will be 8 data bits and 1  bit to check for parity
 	// uses module "parity" to calculate parity of input stream
 	parameter START = 3'b000, STOP = 3'b001, DATA = 3'b010, IDLE = 3'b011, ERROR = 3'b100, PARITY = 3'b101;
 	reg [2:0] state, next;
 	reg [3:0] count;
 	reg [7:0] read;
+	wire odd, rst;
 	
-	// FSM
+	// FSM with added PARITY state
 	always @(*) begin
 		case (state)
 			IDLE : next = in ? IDLE : START;
 			START : next = DATA;
-			DATA : next = (count == 8) ? (in ? STOP : ERROR) : DATA;
+			DATA : next = (count == 8) ? PARITY : DATA;
+			PARITY : next = in ? STOP : ERROR;
 			STOP : next = in ? IDLE : START;
 			ERROR : next = in ? IDLE : ERROR;
 			default : next = IDLE;
@@ -44,10 +46,28 @@ module fsm_serialdp(
 		end
 	end
 	
-	assign done = (state == STOP);
+	// check for odd parity
+	assign rst = (reset || next == START);
+	parity parity_inst(
+		.clk(clk),
+		.reset(rst),
+		.in(in),
+		.odd(odd)
+	);
 	
-	// datapath for out_byte, requires register since out_byte is a signal
-	// when in DATA state, shift current in bit into register
+	// new output logic based on parity
+	always @(posedge clk) begin
+		if (reset)
+			done <= 0;
+		else begin
+			case (next)
+				STOP : done <= odd;
+				default : done <= 0;
+			endcase
+		end
+	end
+		
+	// datapath for out_byte
 	always @(posedge clk) begin
 		if (reset)
 			read <= 0;
@@ -60,7 +80,6 @@ module fsm_serialdp(
 		end
 	end
 	
-	// assert read data to output_byte when in STOP state
 	always @(posedge clk) begin
 		if (reset)
 			out_byte <= 0;
