@@ -1,0 +1,76 @@
+module fsm_serialdata(
+	input clk,
+	input in,
+	input reset,
+	output reg [7:0] out_byte,
+	output done
+);
+	// using FSM from fsm_serial with added datapath that outputs correctly-received data byte
+	// out_byte must be valid hwen done = 1, otherwise don't care
+	// note: serial protocol sends LSB first (reading right to left)
+	
+	// FSM
+	parameter START = 3'b000, STOP = 3'b001, DATA = 3'b010, IDLE = 3'b011, ERROR = 3'b100;
+	reg [2:0] state, next;
+	reg [3:0] count;
+	reg [7:0] read;
+	
+	always @(*) begin
+		case (state)
+			IDLE : next = in ? IDLE : START;
+			START : next = DATA;
+			DATA : next = (count == 8) ? (in ? STOP : ERROR) : DATA;
+			STOP : next = in ? IDLE : START;
+			ERROR : next = in ? IDLE : ERROR;
+			default : next = IDLE;
+		endcase
+	end
+	
+	always @(posedge clk) begin
+		if (reset)
+			state <= IDLE;
+		else
+			state <= next;
+	end
+	
+	always @(posedge clk) begin
+		if (reset)
+			count <= 0;
+		else begin
+			case (next)
+				START : count <= 0;
+				DATA : count <= count + 1;
+				default : count <= count;
+			endcase
+		end
+	end
+	
+	assign done = (state == STOP);
+	
+	// datapath for out_byte, requires register since out_byte is a signal
+	// when in DATA state, shift current in bit into register
+	always @(posedge clk) begin
+		if (reset)
+			read <= 0;
+		else begin
+			case (next)
+				START : read <= 0;
+				DATA : read <= {in, read[7:1]};
+				default : read <= read;
+			endcase
+		end
+	end
+	
+	// assert read data to output_byte when in STOP state
+	always @(posedge clk) begin
+		if (reset)
+			out_byte <= 0;
+		else begin
+			case (next)
+				STOP : out_byte <= read;
+				default : out_byte <= 0;
+			endcase
+		end
+	end
+	
+endmodule
