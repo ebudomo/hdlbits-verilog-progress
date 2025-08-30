@@ -25,7 +25,7 @@ HEADER
 	VERSION = 1;
 	TIME_UNIT = ns;
 	DATA_OFFSET = 0.0;
-	DATA_DURATION = 1000.0;
+	DATA_DURATION = 3000.0;
 	SIMULATION_TIME = 0.0;
 	GRID_PHASE = 0.0;
 	GRID_PERIOD = 1.0;
@@ -147,7 +147,7 @@ TRANSITION_LIST("ack")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 3000.0;
 	}
 }
 
@@ -158,7 +158,7 @@ TRANSITION_LIST("clk")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 1000;
+			REPEAT = 3000;
 			LEVEL 0 FOR 0.5;
 			LEVEL 1 FOR 0.5;
 		}
@@ -171,7 +171,7 @@ TRANSITION_LIST("count[3]")
 	{
 		REPEAT = 1;
 		LEVEL X FOR 99.0;
-		LEVEL 0 FOR 901.0;
+		LEVEL 0 FOR 2901.0;
 	}
 }
 
@@ -181,7 +181,7 @@ TRANSITION_LIST("count[2]")
 	{
 		REPEAT = 1;
 		LEVEL X FOR 99.0;
-		LEVEL 0 FOR 901.0;
+		LEVEL 0 FOR 2901.0;
 	}
 }
 
@@ -191,7 +191,7 @@ TRANSITION_LIST("count[1]")
 	{
 		REPEAT = 1;
 		LEVEL X FOR 99.0;
-		LEVEL 0 FOR 901.0;
+		LEVEL 0 FOR 2901.0;
 	}
 }
 
@@ -201,7 +201,7 @@ TRANSITION_LIST("count[0]")
 	{
 		REPEAT = 1;
 		LEVEL X FOR 99.0;
-		LEVEL 0 FOR 901.0;
+		LEVEL 0 FOR 2901.0;
 	}
 }
 
@@ -211,7 +211,7 @@ TRANSITION_LIST("counting")
 	{
 		REPEAT = 1;
 		LEVEL X FOR 99.0;
-		LEVEL 0 FOR 901.0;
+		LEVEL 0 FOR 2901.0;
 	}
 }
 
@@ -226,7 +226,7 @@ TRANSITION_LIST("data")
 		LEVEL 1 FOR 1.0;
 		LEVEL 0 FOR 3.0;
 		LEVEL 1 FOR 1.0;
-		LEVEL 0 FOR 991.0;
+		LEVEL 0 FOR 2991.0;
 	}
 }
 
@@ -236,7 +236,7 @@ TRANSITION_LIST("done")
 	{
 		REPEAT = 1;
 		LEVEL X FOR 99.0;
-		LEVEL 0 FOR 901.0;
+		LEVEL 0 FOR 2901.0;
 	}
 }
 
@@ -246,7 +246,7 @@ TRANSITION_LIST("reset")
 	{
 		REPEAT = 1;
 		LEVEL 1 FOR 1.0;
-		LEVEL 0 FOR 999.0;
+		LEVEL 0 FOR 2999.0;
 	}
 }
 
