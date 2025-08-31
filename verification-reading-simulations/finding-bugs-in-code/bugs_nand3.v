@@ -9,7 +9,7 @@ module bugs_nand3(
 	// incorrect code: andgate inst1 ( a, b, c, out );
 	// issues: portlist order is incorrect, and only three inputs are listed
 	wire notout;
-	andgate inst1 (notout, a, b, c, (a&b&c), (a&b&c));
+	andgate inst1 (notout, a, b, c, 1'b1, 1'b1);
 	assign out = !notout;
 	
 endmodule
