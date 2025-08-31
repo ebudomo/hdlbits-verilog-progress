@@ -4,17 +4,20 @@ module circuit5 (
 	input [3:0] c,
 	input [3:0] d,
 	input [3:0] e,
-	output reg [3:0] q
+	output [3:0] q
 );
 	// appears that c is the select signal for inputs a, b, d, and e i.e. a 4-1 mux
+	reg [3:0] x;
 	always @(*) begin
 		case (c)
-			4'd0: q = b;
-			4'd1: q = e;
-			4'd2: q = a;
-			4'd3: q = d;
-			default: q = 4'hf;
+			4'd0: x = b;
+			4'd1: x = e;
+			4'd2: x = a;
+			4'd3: x = d;
+			default: x = 4'hf;
 		endcase
 	end
-
+	
+	assign q = x;
+	
 endmodule
