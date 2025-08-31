@@ -4,7 +4,7 @@ module circuit5 (
 	input [3:0] c,
 	input [3:0] d,
 	input [3:0] e,
-	output [3:0] q
+	output reg [3:0] q
 );
 	// appears that c is the select signal for inputs a, b, d, and e i.e. a 4-1 mux
 	always @(*) begin
