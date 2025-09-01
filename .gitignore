@@ -1,5 +1,26 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
 # Ignore build directories
 /project-folder/
 
 # Ignore backup files
 *.v.bak
+
+# Ignore testbench RTL directories
+/verification-writing-testbenches/clock/rtl_work
+/verification-writing-testbenches/tb1/rtl_work
+/verification-writing-testbenches/and/rtl_work
+/verification-writing-testbenches/tb2/rtl_work
+/verification-writing-testbenches/tff/rtl_work
+
+# Ignore RTL simulation files
+*.do
+*.ini
+*.wlf
