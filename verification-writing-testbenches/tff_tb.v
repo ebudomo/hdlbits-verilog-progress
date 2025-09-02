@@ -37,3 +37,5 @@ module tff (
 	input t,		 // toggle
 	output q
 );
+
+endmodule

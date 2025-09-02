@@ -53,3 +53,5 @@ module q7 (
 	input [2:0] s,
 	output out
 );
+endmodule
+
