@@ -24,3 +24,9 @@
 *.do
 *.ini
 *.wlf
+*.sft
+*.vo
+*.sdo
+*.xrf
+*.do.bak
+*.do.bak1

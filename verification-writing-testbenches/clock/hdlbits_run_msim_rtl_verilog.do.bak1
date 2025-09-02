@@ -1,9 +1,0 @@
-transcript on
-if {[file exists rtl_work]} {
-	vdel -lib rtl_work -all
-}
-vlib rtl_work
-vmap work rtl_work
-
-vlog -vlog01compat -work work +incdir+C:/GitHub\ Repos/HDLBits/hdlbits-verilog-progress/verification-writing-testbenches/clock {C:/GitHub Repos/HDLBits/hdlbits-verilog-progress/verification-writing-testbenches/clock/dut.v}
-
