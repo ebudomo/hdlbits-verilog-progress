@@ -29,7 +29,7 @@ module counter_2bc(
 			endcase
 		end
 		else if (~train_valid)
-			next = state;
+			next = count;
 	end
 	
 	// combinational output logic
